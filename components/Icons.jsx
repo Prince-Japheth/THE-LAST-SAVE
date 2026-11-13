@@ -1,0 +1,3 @@
+import {ArrowRight,ArrowLeft,Import,Export,DocumentText,FolderOpen,Gallery,Grid1,Code,VolumeHigh,VolumeSlash,CloseCircle,TickCircle,InfoCircle,ShieldTick,Scan,CodeCircle,Notification} from 'iconsax-reactjs';
+const icons={arrow:ArrowRight,back:ArrowLeft,upload:Export,download:Import,file:DocumentText,folder:FolderOpen,image:Gallery,table:Grid1,terminal:Code,sound:VolumeHigh,mute:VolumeSlash,close:CloseCircle,check:TickCircle,info:InfoCircle,shield:ShieldTick,hex:CodeCircle,scan:Scan,bell:Notification};
+export default function Icon({name,size=18,variant='Linear',...props}){const Component=icons[name]||DocumentText;return <Component size={size} variant={variant} color="currentColor" aria-hidden="true" {...props}/>}

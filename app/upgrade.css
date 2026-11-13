@@ -1,0 +1,135 @@
+
+.recovery-dialog{max-height:90vh;overflow-y:auto;width:min(760px,94vw)}
+.upgrade-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.upgrade-tabs button{border:1px solid var(--line,#cfc7b7);padding:10px 14px;background:transparent;font:inherit;font-size:12px;cursor:pointer}
+.upgrade-tabs button[aria-pressed=true]{background:#30382e;color:#f8f4e9}
+.upgrade-tabs button:disabled{opacity:.45;cursor:default}
+.upgrade-label{display:grid;gap:8px;margin:18px 0;font-size:13px;font-weight:600}
+.upgrade-label input,.upgrade-label select{padding:12px;border:1px solid #bdb5a3;background:#faf6ec;color:#30382e;max-width:100%;font:inherit}
+.config-note{background:#e8e3d6;padding:15px;margin:18px 0;font:11px/1.8 monospace;overflow-wrap:anywhere}
+.config-note code{display:block;margin-top:10px}
+.upgrade-success{padding:16px;background:#e1e8d9;color:#32472c;font-size:13px;line-height:1.6;margin-top:20px}
+.session-status{font:10px/1.6 monospace;margin-bottom:18px;color:#596451;display:grid;gap:6px}
+.session-status button{justify-self:start;font-size:10px}
+.recovery-dialog p{line-height:1.7}.header-actions .text-button{font-size:11px}
+@media(max-width:650px){.header-actions .text-button{font-size:10px}.header-actions{gap:8px!important}.recovery-dialog h2{font-size:36px}}
+
+.notes-detail{margin:24px 0}.notes-detail h3{font-size:15px;margin:24px 0 8px;font-weight:600}.notes-detail p{font-size:13px;line-height:1.8;color:#596451;margin:0}.notes-detail strong{color:#30382e}
+
+.recovery-selected-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media (min-width: 600px) {
+  .recovery-selected-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.recovery-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.recovery-switch-select {
+  padding: 7px 10px;
+  background: #25162e;
+  border: 1px solid #7e425f;
+  color: #ffe3cc;
+  font: 11px var(--mono, monospace);
+  cursor: pointer;
+}
+.change-file-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+}
+.recovery-empty-state {
+  border: 1px dashed #7e425f;
+  background: #170d1e55;
+  padding: 20px;
+  margin: 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.recovery-empty-copy strong {
+  display: block;
+  font-size: 14px;
+  color: #ffb577;
+  margin-bottom: 4px;
+}
+.recovery-empty-copy p {
+  margin: 0;
+  font-size: 12px;
+  color: #cbaacb;
+  line-height: 1.5;
+}
+.recovery-cta-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cta-upload-btn {
+  cursor: pointer;
+}
+.cta-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #a88fa8;
+}
+.file-size-tag {
+  color: #ff9c3d;
+  font-weight: normal;
+}
+.header-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: #261730;
+  border: 1px solid #ff8f3655;
+  color: #ffe3cc;
+  font: 9.5px var(--mono, monospace);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.header-tool-btn:hover:not(:disabled) {
+  background: #ff8f3622;
+  border-color: #ff8f36;
+  color: #fff;
+}
+.sidebar-tool-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 10px;
+  margin-bottom: 8px;
+  background: #22142c;
+  border: 1px solid #7e425f;
+  color: #ffb577;
+  font: 8px var(--mono, monospace);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sidebar-tool-button:hover:not(:disabled) {
+  background: #ff8f3622;
+  border-color: #ff8f36;
+  color: #ffe3cc;
+}
+.sidebar-tool-button > span:first-of-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}

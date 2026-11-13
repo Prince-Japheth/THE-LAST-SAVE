@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Decoder Schema Guard",
+      "trigger": "PreToolUse",
+      "matcher": "fs_write|str_replace|fs_append",
+      "action": {
+        "type": "agent",
+        "prompt": "Before writing or editing any file in lib/decoders.mjs, lib/archive.mjs, lib/parity.mjs, lib/carve.mjs, or lib/recovery.worker.js, verify the following against .kiro/steering/type-and-schema-guardrails.md and .kiro/steering/architecture-boundaries.md:\n\n1. DECODER CONTRACT: Any function that returns a decoded artifact must return the exact schema shape defined in type-and-schema-guardrails.md (kind, format, title, era, description, metadata[], warnings[], and exactly one of image/table/text). It must throw Error — never return null/undefined/{} — on invalid input.\n\n2. ARCHIVE CONTRACT: openArchive must return Array<{name, bytes}>. It must not mutate input bytes. It must not return metadata-only entries.\n\n3. LIMITS: All size/count constants (MAX_INPUT_BYTES=8MiB, MAX_PIXELS=4M, MAX_ZIP_FILES=32, MAX_ZIP_TOTAL_BYTES=16MiB, DECODE_TIMEOUT_MS=10000, PARITY_TIMEOUT_MS=30000) must remain unchanged unless the corresponding tests are also updated.\n\n4. LAYER ISOLATION: Core libs must not import from react, next, or any DOM API. Workers must be the only callers of core lib functions from the UI side.\n\n5. NO INVENTED DATA: Decoders must never return fabricated or interpolated values. All warnings must be explicit strings.\n\nIf any of these constraints would be violated by the proposed edit, block the write and explain which constraint is violated and how to fix it."
+      }
+    }
+  ]
+}

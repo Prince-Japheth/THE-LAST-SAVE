@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Test Gate on Core Save",
+      "trigger": "PostFileSave",
+      "description": "Runs the full test suite whenever a file in lib/ is saved. Surfaces failures immediately so broken decoders, archive logic, or parity code are caught before the next build.",
+      "matcher": "lib/.*\\.(mjs|js)$",
+      "action": {
+        "type": "command",
+        "command": "npm test",
+        "timeout": 90
+      }
+    }
+  ]
+}

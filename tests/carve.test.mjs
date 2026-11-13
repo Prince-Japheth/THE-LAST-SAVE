@@ -1,0 +1,18 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {deflateSync} from 'node:zlib';
+import {carveDiskImage,MAX_IMAGE_BYTES} from '../lib/carve.mjs';
+const concat=(...parts)=>Uint8Array.from(parts.flatMap(p=>Array.from(p)));
+function crc(b){let c=0xffffffff;for(const x of b){c^=x;for(let i=0;i<8;i++)c=c&1?0xedb88320^(c>>>1):c>>>1;}return (c^0xffffffff)>>>0;}
+function chunk(name,data){const b=new Uint8Array(data.length+12),v=new DataView(b.buffer);v.setUint32(0,data.length);b.set(new TextEncoder().encode(name),4);b.set(data,8);v.setUint32(b.length-4,crc(b.subarray(4,b.length-4)));return b;}
+function png(){const ihdr=new Uint8Array(13),v=new DataView(ihdr.buffer);v.setUint32(0,1);v.setUint32(4,1);ihdr[8]=8;ihdr[9]=2;return concat([137,80,78,71,13,10,26,10],chunk('IHDR',ihdr),chunk('IDAT',deflateSync(new Uint8Array([0,255,0,0]))),chunk('IEND',[]));}
+function bmp(){const b=new Uint8Array(58),v=new DataView(b.buffer);b.set([66,77]);v.setUint32(2,58,true);v.setUint32(10,54,true);v.setUint32(14,40,true);v.setInt32(18,1,true);v.setInt32(22,1,true);v.setUint16(26,1,true);v.setUint16(28,24,true);b.set([3,2,1],54);return b;}
+function jpeg(){const segment=(marker,payload)=>concat([255,marker,(payload.length+2)>>8,(payload.length+2)&255],payload);const counts=[1,...Array(15).fill(0)];return concat([255,216],segment(219,[0,...Array(64).fill(1)]),segment(192,[8,0,8,0,8,1,1,17,0]),segment(196,[0,...counts,0,16,...counts,0]),segment(218,[1,1,0,0,63,0]),[63,255,217]);}
+test('finds contiguous PNG/BMP/JPEG at exact offsets and preserves their bytes',()=>{const p=png(),b=bmp(),j=jpeg(),image=concat(new Uint8Array(37),p,new Uint8Array(11),b,new Uint8Array(9),j);const r=carveDiskImage(image);assert.deepEqual(r.map(x=>x.format),['PNG','BMP','JPEG']);assert.deepEqual(r.map(x=>x.offset),[37,37+p.length+11,37+p.length+11+b.length+9]);assert.deepEqual(r.map(x=>x.bytes),[p,b,j]);assert.match(r[0].warnings[0],/unknown/);});
+test('PNG chunk corruption, truncation and missing IDAT do not carve',()=>{const p=png(),bad=p.slice();bad[bad.length-1]^=1;for(const b of [bad,p.subarray(0,p.length-1),concat(p.subarray(0,33),chunk('IEND',[]))])assert.deepEqual(carveDiskImage(b),[]);});
+test('BMP malicious dimensions, truncated pixels and declared lengths reject',()=>{const b=bmp();new DataView(b.buffer).setInt32(18,0x7fffffff,true);assert.deepEqual(carveDiskImage(b),[]);assert.deepEqual(carveDiskImage(bmp().subarray(0,57)),[]);const bad=bmp();new DataView(bad.buffer).setUint32(2,0xffffffff,true);assert.deepEqual(carveDiskImage(bad),[]);});
+test('JPEG requires tables, frame, scan, nonempty entropy and EOI',()=>{const j=jpeg();assert.deepEqual(carveDiskImage(j.subarray(0,j.length-1)),[]);assert.deepEqual(carveDiskImage(new Uint8Array([255,216,255,217])),[]);const bad=j.slice();bad[4]=255;bad[5]=255;assert.deepEqual(carveDiskImage(bad),[]);});
+test('random signature noise does not become recovered files',()=>{const noise=Uint8Array.from({length:16000},(_,i)=>(i*113+31)%256);noise.set([137,80,78,71,13,10,26,10],20);noise.set([66,77],400);noise.set([255,216],800);assert.deepEqual(carveDiskImage(noise),[]);});
+test('candidate count and input size are bounded',()=>{const files=Array.from({length:40},()=>bmp());assert.equal(carveDiskImage(concat(...files)).length,32);assert.throws(()=>carveDiskImage(new Uint8Array(MAX_IMAGE_BYTES+1)),/64 MiB/);assert.throws(()=>carveDiskImage('not bytes'),/64 MiB/);});
+
+test('hostile repeated signatures cannot trigger unbounded validator work',()=>{const b=new Uint8Array(30000);for(let p=0;p<20000;p+=4)b.set([66,77],p);assert.throws(()=>carveDiskImage(b),/Too many candidate signatures/);});

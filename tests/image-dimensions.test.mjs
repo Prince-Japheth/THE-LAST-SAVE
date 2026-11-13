@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {nativeImageDimensions} from '../lib/image-dimensions.mjs';
+test('PNG dimensions bounded before browser image allocation',()=>{const b=new Uint8Array(24);b.set([137,80,78,71,13,10,26,10],0);b.set([73,72,68,82],12);let v=new DataView(b.buffer);v.setUint32(16,320);v.setUint32(20,200);assert.deepEqual(nativeImageDimensions(b),{format:'PNG',width:320,height:200});v.setUint32(16,1000000);assert.throws(()=>nativeImageDimensions(b),/pixel/)});
+test('JPEG frame inspection refuses incomplete marker lengths',()=>{assert.throws(()=>nativeImageDimensions(new Uint8Array([255,216,255,192,0,40])),/length/);assert.equal(nativeImageDimensions(new Uint8Array([0,1,2])),null)});

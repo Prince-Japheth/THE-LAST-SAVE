@@ -1,0 +1,624 @@
+.pixel-bat-art{display:inline-block;width:63px;height:64px;background-image:url('/halloween/pixel-bat-sprite.png');background-size:504px 64px;image-rendering:pixelated;animation:pixel-bat-frames .4s steps(1,end) infinite;filter:drop-shadow(1px 0 #aa7fc2) drop-shadow(-1px 0 #aa7fc2) drop-shadow(0 0 8px #a247cf66);flex-shrink:0}
+@keyframes pixel-bat-frames{0%{background-position:0 0}14.3%{background-position:-63px 0}28.6%{background-position:-126px 0}42.9%{background-position:-189px 0}57.2%{background-position:-252px 0}71.5%{background-position:-315px 0}85.8%{background-position:-378px 0}100%{background-position:-441px 0}}
+.night-shift-scene{height:115px;margin:0 0 22px;position:relative;display:flex;align-items:center;gap:18px;padding:12px 24px;background:radial-gradient(ellipse at 8% 100%,#ff6f193d,transparent 40%),radial-gradient(ellipse at 85% 0,#7d2eab44,transparent 46%),#1a1022;border:1px solid #7e425f;border-left:3px solid #ff8f36;isolation:isolate;overflow:hidden;box-shadow:inset 0 0 35px #0005}.night-pumpkins{display:flex;align-items:flex-end;padding:0;width:140px;flex-shrink:0;transition:transform .2s;position:relative;z-index:2}.night-pumpkins:hover{transform:rotate(-4deg)}.night-pumpkins svg{width:90px;height:88px;filter:drop-shadow(0 0 16px #ed7c2460)}.night-pumpkins svg+svg{width:64px;height:66px;margin-left:-20px;transform:rotate(12deg)}.night-scene-copy{display:grid;gap:7px;position:relative;z-index:2}.night-scene-copy>span{font:6px var(--mono);color:#ffb577;letter-spacing:1.4px}.night-scene-copy>strong{font:30px/1 var(--serif);color:#fff0dc;font-weight:400}.night-scene-copy em{color:#ff9c3d}.night-scene-copy>small{font:7px var(--mono);color:#cbaacb;max-width:390px;line-height:1.5}.pixel-bat-button{margin-left:auto;display:grid;place-items:center;gap:1px;padding:0 12px;z-index:3;position:relative;flex-shrink:0;transition:transform .3s}.pixel-bat-button>.pixel-bat-art{scale:1.18}.pixel-bat-button>span:last-child{font:5px var(--mono);color:#d3b1e9;letter-spacing:1px;margin-top:2px}.pixel-bat-button:hover{transform:translateY(-5px)}.bat-awake .pixel-bat-button{animation:bat-scene-adventure 4.3s ease-in-out both}.night-scene-skeleton{width:45px;height:91px;color:#f7d7b5;flex-shrink:0;rotate:12deg}.night-scene-ghost{position:absolute;width:36px;height:46px;right:27%;top:-12px;opacity:.15;color:#e3b6fa;animation:ghost-hover 6s ease-in-out infinite}.night-scene-web{position:absolute;right:0;top:0;width:130px;height:115px;opacity:.2;background:repeating-conic-gradient(from 180deg at 100% 0,transparent 0deg 14deg,#d29ddb 14deg 14.5deg,transparent 14.5deg 30deg);mask-image:radial-gradient(circle at top right,#000,transparent 75%)}
+@keyframes bat-scene-adventure{0%,100%{transform:none}20%{transform:translate(-35px,-14px) rotate(-15deg)}40%{transform:translate(-100px,8px) rotate(12deg)}65%{transform:translate(-40px,-13px) rotate(-8deg)}80%{transform:translate(0,6px) rotate(7deg)}}
+.flying-pixel-bat{position:absolute;left:-90px;top:calc(10% + var(--i)*45px);animation:archive-bats 4.5s linear both;animation-delay:calc(var(--i)*.18s)}.flying-pixel-bat .pixel-bat-art{scale:1.3}.lobby-pixel-bat{position:absolute;right:20%;top:26px;z-index:3;transform:rotate(-9deg)}.lobby-pixel-bat .pixel-bat-art{scale:1.3}
+.collection-toggle,.collection-close,.collection-backdrop{display:none}
+/* The entire desktop collection rail fits the viewport. Only its file list scrolls. */
+@media(min-width:851px){.site-header{position:sticky;top:0;z-index:60;height:72px}.app-body{min-height:calc(100dvh - 72px);align-items:flex-start}.main-area{margin:0 auto;padding-top:27px}.archive-sidebar{position:sticky;top:72px;align-self:flex-start;height:calc(100dvh - 72px);max-height:calc(100dvh - 72px);min-height:0;overflow:hidden;padding:17px 16px 12px}.archive-sidebar>.sidebar-label,.archive-sidebar>.collection-title,.archive-sidebar>.sidebar-rule,.archive-sidebar>.sidebar-section-label,.archive-sidebar>.sidebar-lobby-section{flex-shrink:0}.collection-title{margin:17px 0}.sidebar-rule{margin-bottom:15px}.sidebar-section-label{margin-bottom:8px}.artifact-list{flex:1;min-height:60px;overflow-y:auto;overflow-x:hidden;display:flex;scrollbar-width:thin;scrollbar-color:#865395 transparent;overscroll-behavior:contain;margin:0 -5px;padding-right:3px;gap:3px}.artifact-item{min-height:55px;flex-shrink:0;padding:8px 6px}.artifact-name{font-size:8px}.artifact-name small{font-size:7px}.sidebar-bottom{margin-top:10px;padding-top:7px;flex-shrink:0;display:flex;flex-direction:column;align-items:stretch;gap:0}.skeleton-crew-dock{margin-bottom:10px}.crew-speech{font-size:13px;min-height:0;padding:9px 11px}.crew-dock-controls{padding:6px 8px}.archive-keeper>svg{height:38px;width:25px}.session-status{margin-bottom:8px;gap:2px;font-size:9px}.session-status .text-button{padding:4px 0}.privacy-note{padding:0 0 10px;font-size:8px}.privacy-note br{display:none}.upload-button{padding:9px 8px}.supported{margin:7px 0 0;font-size:6px}.haunt-dock-slot:empty{display:none}.page-heading{margin-bottom:24px}}
+@media(min-width:851px) and (max-height:800px){.crew-speech{display:none}.archive-keeper>svg{height:30px;width:21px}.unleash-button{padding:7px 10px}.collection-title{margin:11px 0}.sidebar-rule{margin-bottom:10px}.artifact-item{min-height:48px}.artifact-name small{margin-top:4px}.privacy-note{font-size:7px}.archive-sidebar{padding-top:13px}.skeleton-crew-dock{margin-bottom:7px}}
+@media(max-width:1100px) and (min-width:851px){.night-shift-scene{gap:10px;padding-inline:13px}.night-pumpkins{width:105px}.night-pumpkins svg{width:73px;height:75px}.night-scene-copy>strong{font-size:27px}.night-scene-skeleton{display:none}.night-scene-copy>small{max-width:270px}}
+@media(max-width:850px){.collection-toggle{display:flex}.collection-close{display:flex;align-self:flex-end;margin-bottom:12px}.archive-sidebar{display:none;order:0}.collection-open .archive-sidebar{display:flex;position:fixed;inset:0 auto 0 0;z-index:81;width:min(330px,90vw);height:100dvh;max-height:100dvh;padding:18px 20px;overflow:hidden;flex-direction:column;background:#170f20;border-right:1px solid #93619d;box-shadow:10px 0 70px #000a}.collection-open .collection-backdrop{display:block;position:fixed;inset:0;z-index:80;background:#030106aa;backdrop-filter:blur(6px)}.collection-open .artifact-list{display:flex;flex-direction:column;flex:1;min-height:50px;overflow:auto;scrollbar-width:thin;gap:4px}.collection-open .artifact-item{min-height:51px;flex-shrink:0}.collection-open .sidebar-lobby-section{display:flex;flex-direction:column;flex-shrink:0;margin-bottom:8px}.collection-open .sidebar-bottom{display:flex;flex-direction:column;align-items:stretch;gap:0;margin-top:12px;padding-top:10px;flex-shrink:0}.collection-open .collection-title{margin:10px 0 15px}.collection-open .session-status{margin-bottom:8px}.collection-open .privacy-note{padding:0 0 12px}.collection-open .privacy-note br{display:none}.collection-open .supported{margin-top:8px}.collection-open .sidebar-rule{margin-bottom:12px}.collection-open .sidebar-section-label{margin-bottom:8px}.collection-open .haunt-dock-slot{display:none}.collection-open .skeleton-crew-dock{visibility:hidden}.night-shift-scene{height:107px;padding:10px 12px;gap:8px}.night-pumpkins{width:86px}.night-pumpkins svg{width:68px;height:70px}.night-pumpkins svg+svg{width:45px;height:48px}.night-scene-copy>span{font-size:5px;letter-spacing:.7px}.night-scene-copy>strong{font-size:26px}.night-scene-copy>small{font-size:6px;max-width:270px}.night-scene-skeleton{display:none}.pixel-bat-button{padding:0 4px}.pixel-bat-button>.pixel-bat-art{scale:1}.pixel-bat-button>span:last-child{font-size:4px}.lobby-pixel-bat{top:35px;right:21%}}
+@media(max-width:600px){.night-shift-scene{height:134px;margin-bottom:17px;gap:9px;padding:10px 11px}.night-pumpkins{width:68px;align-self:flex-end}.night-pumpkins svg{width:60px;height:62px}.night-pumpkins svg+svg{width:39px;height:42px;margin-left:-26px}.night-scene-copy{max-width:calc(100% - 76px);padding-right:36px;gap:8px;align-self:flex-start;margin-top:8px}.night-scene-copy>strong{font-size:27px;line-height:1.05}.night-scene-copy>span{font-size:4.5px}.night-scene-copy>small{font-size:6px;line-height:1.5}.pixel-bat-button{position:absolute;right:7px;top:17px;width:57px;padding:0}.pixel-bat-button>.pixel-bat-art{scale:.9}.pixel-bat-button>span:last-child{font-size:4px;letter-spacing:0;margin-top:-4px}.night-scene-ghost{right:27%;width:26px}.lobby-pixel-bat{top:auto;bottom:364px;right:9%}.header-actions{gap:6px!important}.collection-toggle{padding:0!important}.header-actions .text-button{font-size:7px}.header-actions .icon-button{width:23px}.main-area{padding-top:25px}.collection-open .archive-sidebar{width:min(315px,90vw)}}
+:root[data-haunting=calm] .pixel-bat-art,:root[data-haunting=calm] .bat-awake .pixel-bat-button{animation:none!important}
+@media(prefers-reduced-motion:reduce){.pixel-bat-art,.pixel-bat-button,.night-scene-ghost{animation:none!important;transition:none!important}.pixel-bat-button:hover,.night-pumpkins:hover{transform:none}.flying-pixel-bat{display:none}}
+
+.mobile-haunt-slot{display:none}@media(max-width:850px){.mobile-haunt-slot{display:block}}
+/* Keep the mobile keeper in normal flow so it never sits on recovered text. */
+@media(max-width:850px){.mobile-haunt-slot .skeleton-crew-dock{position:relative;left:auto;bottom:auto;width:calc(100% - 40px);margin:0 20px 20px}.mobile-haunt-slot .crew-speech{display:block;font-size:16px;padding:12px 14px}.mobile-haunt-slot .crew-dock-controls{padding:10px 12px}.mobile-haunt-slot .archive-keeper>span{font-size:7px}.mobile-haunt-slot .archive-keeper small{display:block;font-size:5px}.mobile-haunt-slot .archive-keeper>svg{height:48px;width:29px}.mobile-haunt-slot .haunt-toggle{font-size:7px;padding:9px}.mobile-haunt-slot .unleash-button{font-size:7px;padding:11px 14px}.main-footer{padding-bottom:25px}}
+
+/* Independent pixel-bat routes; the source faces left, so rightbound bats mirror it. */
+.flying-pixel-bat{left:0;top:var(--flight-top);animation-duration:var(--flight-time);animation-delay:var(--flight-delay);animation-timing-function:linear;animation-fill-mode:both}.flies-right{animation-name:pixel-route-right;--face:-1}.flies-left{animation-name:pixel-route-left;--face:1}.flying-pixel-bat .pixel-bat-art{scale:var(--bat-scale);transform:scaleX(var(--face));animation-duration:var(--wing-speed);animation-delay:var(--wing-phase)}
+@keyframes pixel-route-right{0%{opacity:0;transform:translate3d(-150px,0,0) rotate(-5deg)}12%{opacity:.85}35%{transform:translate3d(35vw,var(--rise),0) rotate(5deg)}65%{transform:translate3d(68vw,var(--dip),0) rotate(-7deg)}88%{opacity:.85}100%{opacity:0;transform:translate3d(calc(100vw + 150px),var(--finish),0) rotate(4deg)}}
+@keyframes pixel-route-left{0%{opacity:0;transform:translate3d(calc(100vw + 150px),0,0) rotate(5deg)}12%{opacity:.85}35%{transform:translate3d(65vw,var(--dip),0) rotate(-4deg)}65%{transform:translate3d(32vw,var(--rise),0) rotate(8deg)}88%{opacity:.85}100%{opacity:0;transform:translate3d(-150px,var(--finish),0) rotate(-5deg)}}
+
+/* =========================================================================
+   BALANCED TYPOGRAPHY & LEGIBILITY
+   Keeps text genuinely readable without looking oversized, chunky, or crowded.
+   ========================================================================= */
+
+/* --- SIDEBAR & SKELETON CREW --- */
+.archive-sidebar {
+  font-size: 11px;
+}
+.sidebar-label, .sidebar-section-label {
+  font-size: 8.5px !important;
+  letter-spacing: 0.08em !important;
+}
+.sidebar-label>span {
+  font-size: 8px !important;
+  padding: 1px 4px !important;
+}
+.collection-title p {
+  font-size: 9.5px !important;
+  line-height: 1.35 !important;
+}
+.artifact-list {
+  gap: 2px !important;
+}
+.artifact-item {
+  min-height: 42px !important;
+  padding: 6px 7px !important;
+  font-size: 10px !important;
+}
+.artifact-index {
+  font-size: 8.5px !important;
+}
+.artifact-name {
+  font-size: 10px !important;
+  line-height: 1.25 !important;
+}
+.artifact-name small {
+  font-size: 8.5px !important;
+  margin-top: 1px !important;
+}
+.session-status {
+  font-size: 8.5px !important;
+  margin-bottom: 3px !important;
+}
+.session-status button {
+  font-size: 8.5px !important;
+}
+.privacy-note {
+  font-size: 8.5px !important;
+  padding: 2px 0 4px !important;
+}
+.supported {
+  font-size: 8px !important;
+  margin: 3px 0 0 !important;
+}
+.upload-button {
+  font-size: 9.5px !important;
+  padding: 6px 8px !important;
+}
+
+.sidebar-lobby-section {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+}
+.lobby-nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.lobby-nav-ghost {
+  width: 14px;
+  height: 17px;
+  flex-shrink: 0;
+  color: #ff942e;
+  filter: drop-shadow(0 0 5px #ff7b2588);
+  transition: transform .2s ease, color .2s ease;
+}
+.lobby-nav-item:hover .lobby-nav-ghost {
+  transform: translateY(-2px) rotate(-6deg);
+  color: #ffd6a0;
+}
+.lobby-nav-item.active .lobby-nav-ghost {
+  color: #f1d6ff;
+  filter: drop-shadow(0 0 8px #d77afc);
+}
+
+/* Skeleton crew dock */
+.skeleton-crew-dock {
+  border-radius: 4px !important;
+  margin-bottom: 6px !important;
+}
+.crew-speech {
+  font-size: 10.5px !important;
+  line-height: 1.3 !important;
+  padding: 6px 8px !important;
+  min-height: 32px !important;
+}
+.crew-dock-controls {
+  padding: 4px 6px !important;
+  gap: 3px !important;
+}
+.archive-keeper>svg {
+  width: 20px !important;
+  height: 32px !important;
+}
+.archive-keeper>span {
+  font-size: 8px !important;
+  line-height: 1.2 !important;
+}
+.archive-keeper small {
+  font-size: 7.5px !important;
+}
+.haunt-toggle {
+  font-size: 7.5px !important;
+  padding: 3px 5px !important;
+}
+.unleash-button {
+  font-size: 8px !important;
+  padding: 5px 7px !important;
+}
+
+
+/* --- WORKBENCH TOP & MAIN HEADER --- */
+.workbench-top {
+  font-size: 10px !important;
+  scroll-margin-top: 76px;
+}
+.sidebar-section-ctrls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar-eject-btn {
+  background: none;
+  border: 1px solid #ff8f3655;
+  color: #ffb577;
+  font: 7.5px var(--mono);
+  padding: 1px 6px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  transition: all 0.15s ease;
+}
+.sidebar-eject-btn:hover {
+  background: #ff8f3622;
+  border-color: #ff8f36;
+  color: #ffe3cc;
+}
+.workbench-links .eject-button {
+  color: #ff9c3d !important;
+  border-color: #ff9c3d44 !important;
+}
+.workbench-links .eject-button:hover {
+  background: #ff9c3d22 !important;
+  color: #ffb577 !important;
+}
+.empty-archive-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 10px;
+  border: 1px dashed #7e425f88;
+  background: #140b1b55;
+  color: #cbaacb;
+  font: 8px var(--mono);
+  line-height: 1.4;
+  margin: 4px 0;
+}
+.empty-archive-slot .empty-title {
+  color: #ffb577;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 8px;
+}
+.empty-archive-slot .empty-text {
+  margin: 0;
+  color: #a88fa8;
+  font-size: 7.5px;
+  line-height: 1.35;
+}
+.empty-archive-slot .sidebar-insert-btn {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 8px;
+  background: #2b1738;
+  border: 1px solid #ff8f36;
+  color: #ffe3cc;
+  font: 7.5px var(--mono);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.empty-archive-slot .sidebar-insert-btn:hover:not(:disabled) {
+  background: #ff8f36;
+  color: #120917;
+}
+.bay-number {
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  padding: 1px 4px !important;
+}
+.workbench-status {
+  font-size: 9.5px !important;
+  letter-spacing: 0.05em !important;
+}
+.workbench-links .text-button,
+.haunted-lobby-link {
+  font-size: 9.5px !important;
+  letter-spacing: 0.04em !important;
+}
+
+
+/* --- NIGHT SHIFT BANNER & KIRO BADGE --- */
+.night-scene-copy > span {
+  font-size: 9px !important;
+  letter-spacing: 0.08em !important;
+}
+.night-scene-copy > small {
+  font-size: 10px !important;
+  line-height: 1.35 !important;
+}
+.pixel-bat-button > span:last-child {
+  font-size: 8.5px !important;
+  letter-spacing: 0.05em !important;
+}
+.kiro-badge small {
+  font-size: 8.5px !important;
+  letter-spacing: 0.07em !important;
+}
+.kiro-badge em {
+  font-size: 8px !important;
+  letter-spacing: 0.05em !important;
+}
+.kiro-badge strong span {
+  font-size: 11.5px !important;
+}
+
+
+/* --- FLOPPY DISK (PROPORTIONATE VINTAGE LABELS - A TEENY BIT BIGGER) --- */
+.shutter > span {
+  font-size: 8.5px !important;
+  letter-spacing: 0.05em !important;
+}
+.label-footer span {
+  font-size: 8.5px !important;
+  letter-spacing: 0.04em !important;
+}
+.disk-edge {
+  font-size: 8.5px !important;
+  letter-spacing: 0.04em !important;
+}
+.disk-caption {
+  font-size: 9.5px !important;
+  letter-spacing: 0.04em !important;
+}
+.coordinate {
+  font-size: 8.5px !important;
+  letter-spacing: 0.05em !important;
+}
+
+
+/* --- HALLOWEEN STAGE / GRAVEYARD --- */
+.stage-ghost span {
+  font-size: 9px !important;
+  letter-spacing: 0.03em !important;
+}
+.grave-marker small {
+  font-size: 8.5px !important;
+  line-height: 1.25 !important;
+}
+.crew-controls button {
+  font-size: 10px !important;
+  letter-spacing: 0.05em !important;
+  padding: 6px 12px !important;
+}
+.crew-message {
+  font-size: 10px !important;
+  line-height: 1.35 !important;
+}
+.bay-bottom,
+.bay-bottom span,
+.bay-bottom div {
+  font-size: 9px !important;
+  letter-spacing: 0.04em !important;
+}
+
+
+/* --- DOSSIER & INTEGRITY PANEL --- */
+.integrity-badge {
+  padding: 8px 0 !important;
+}
+.integrity-badge > div {
+  font-size: 10px !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.3 !important;
+}
+.integrity-badge small {
+  font-size: 9px !important;
+  letter-spacing: 0.02em !important;
+  margin-top: 2px !important;
+}
+.artifact-evidence-number {
+  font-size: 38px !important;
+}
+.artifact-evidence-number span {
+  font-size: 9.5px !important;
+  letter-spacing: 0.06em !important;
+}
+.evidence-heading {
+  font-size: 9px !important;
+}
+.evidence-format span {
+  font-size: 9px !important;
+}
+.format-description {
+  font-size: 10.5px !important;
+}
+.metadata > div {
+  font-size: 9.5px !important;
+}
+.decoder-notes {
+  font-size: 10px !important;
+}
+
+
+/* --- FOOTERS & STRIPS --- */
+.image-stage-footer {
+  font-size: 9px !important;
+  letter-spacing: 0.05em !important;
+  bottom: 8px !important;
+  left: 12px !important;
+  right: 12px !important;
+}
+.image-stage-footer span {
+  font-size: 9px !important;
+}
+.viewer-footer {
+  font-size: 9.5px !important;
+  letter-spacing: 0.04em !important;
+  height: 29px !important;
+  padding: 0 10px !important;
+}
+.viewer-footer-right {
+  font-size: 9px !important;
+  letter-spacing: 0.04em !important;
+}
+.bundle-button {
+  font-size: 11px !important;
+  letter-spacing: 0.05em !important;
+  padding: 9px 15px !important;
+}
+.session-caption {
+  font-size: 10px !important;
+}
+.main-footer {
+  font-size: 10px !important;
+  letter-spacing: 0.04em !important;
+  padding: 14px 0 !important;
+}
+.main-footer span,
+.main-footer button {
+  font-size: 10px !important;
+  letter-spacing: 0.04em !important;
+}
+
+
+/* --- FIELD NOTES MODAL & FORMAT GUIDE --- */
+.notes-top span {
+  font-size: 10px !important;
+  letter-spacing: 0.06em !important;
+}
+.format-guide {
+  margin: 18px 0 !important;
+}
+.format-guide > div {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: baseline !important;
+  padding: 10px 0 !important;
+  gap: 16px !important;
+}
+.format-guide b {
+  font-size: 11px !important;
+  letter-spacing: 0.05em !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+.format-guide span {
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+  text-align: right !important;
+}
+.notes-detail h3 {
+  font-size: 13.5px !important;
+  margin: 18px 0 6px !important;
+}
+.notes-detail p {
+  font-size: 11.5px !important;
+  line-height: 1.65 !important;
+}
+.fiction-note span {
+  font-size: 9.5px !important;
+}
+.fiction-note p {
+  font-size: 10.5px !important;
+  line-height: 1.5 !important;
+}
+
+/* --- SPECIMEN BADGE: "HALLOWEEN / THE RESURRECTION LAB" --- */
+.specimen-label {
+  font-size: 10px !important;
+  letter-spacing: 0.1em !important;
+  padding: 6px 11px !important;
+  line-height: 1.3 !important;
+}
+
+
+
+
+
+
+.kiro-logo-mark{display:block;width:35px;height:44px;background:#ceb2f4;-webkit-mask:url('/halloween/kiro-logo-source.svg') center/contain no-repeat;mask:url('/halloween/kiro-logo-source.svg') center/contain no-repeat;filter:drop-shadow(0 0 9px #bc8bea55)}.kiro-badge:hover .kiro-logo-mark{animation:badge-possession .8s ease-in-out infinite alternate}@media(max-width:1150px){.kiro-logo-mark{width:28px;height:36px}}@media(prefers-reduced-motion:reduce){.kiro-badge:hover .kiro-logo-mark{animation:none!important}}
+
+.kiro-ambition{display:table;margin-top:8px;padding:5px 7px;border:1px solid #b278c277;background:#6b305728;color:#ffd397;font:7px/1.3 var(--mono);letter-spacing:.6px}.kiro-love-note{display:flex;align-items:center;gap:13px;padding:18px 0;border-top:1px solid #633b67;margin-top:16px;color:#e9c6fa}.kiro-love-note strong{display:block;font:22px var(--serif);font-weight:400}.kiro-love-note small{display:block;font:9px/1.5 var(--mono);color:#bda1c6;margin-top:5px}.kiro-love-note>svg{margin-left:auto;flex-shrink:0}.kiro-mini-mark{width:25px;height:33px;flex-shrink:0;background:#ceb2f4;mask:url('/halloween/kiro-logo-source.svg') center/contain no-repeat;-webkit-mask:url('/halloween/kiro-logo-source.svg') center/contain no-repeat}.kiro-love-note:hover strong{color:#ffbf8a}
+@media(max-width:600px){.kiro-love-note strong{font-size:20px}.kiro-love-note small{font-size:8px}.kiro-ambition{font-size:6.5px}.kiro-badge{gap:11px}}
+
+/* Readable ambition note; preserve the rest of the badge. */
+.kiro-ambition{font-size:11px;line-height:1.4;letter-spacing:.3px;padding:6px 8px;color:#ffe2b2}
+@media(max-width:600px){.kiro-ambition{font-size:10px}}
+.kiro-ambition{position:relative;overflow:hidden;isolation:isolate;border-color:#e6b06b;box-shadow:0 0 16px #eeb56b25;animation:ambassador-welcome 1s ease-out both}
+.kiro-ambition:after{content:"";position:absolute;inset:-35% auto -35% -85%;width:55%;pointer-events:none;background:linear-gradient(105deg,transparent,#ffe8b94d 35%,#fff7ddbb 50%,#ffe8b94d 65%,transparent);transform:skewX(-18deg);mix-blend-mode:screen;animation:ambassador-sheen 4.8s ease-in-out .15s infinite}
+@keyframes ambassador-sheen{0%{left:-85%;opacity:0}8%{opacity:1}30%{left:145%;opacity:1}31%,100%{left:145%;opacity:0}}
+@keyframes ambassador-welcome{0%{box-shadow:0 0 0 #ffd89b00}40%{box-shadow:0 0 23px #efb46e77}100%{box-shadow:0 0 16px #eeb56b25}}
+@media(prefers-reduced-motion:reduce){.kiro-ambition{animation:none}.kiro-ambition:after{animation:none;display:none}}
+
+/* --- KIRO LOVE NOTE LEGIBILITY --- */
+.kiro-love-note small {
+  font-size: 12.5px !important;
+  line-height: 1.5 !important;
+  color: #dfc8ea !important;
+  margin-top: 6px !important;
+  letter-spacing: 0.02em !important;
+}
+
+@media(max-width: 600px) {
+  .kiro-love-note small {
+    font-size: 11.5px !important;
+    line-height: 1.45 !important;
+  }
+}
+
+/* --- DEMO CAPTION LEGIBILITY (DOWNLOAD THE SAMPLE DISK & FICTIONAL CASE) --- */
+.demo-caption {
+  font-size: 11px !important;
+  letter-spacing: 0.05em !important;
+  gap: 5px !important;
+  margin-top: 14px !important;
+}
+.demo-caption a {
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  color: #f3ecd9 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  transition: color 0.2s ease !important;
+}
+.demo-caption a:hover {
+  color: #ff9d54 !important;
+}
+.demo-caption span {
+  font-size: 10px !important;
+  letter-spacing: 0.06em !important;
+  color: #bfaec7 !important;
+}
+
+@media(max-width: 600px) {
+  .demo-caption {
+    font-size: 10.5px !important;
+  }
+  .demo-caption a {
+    font-size: 11px !important;
+  }
+  .demo-caption span {
+    font-size: 9.5px !important;
+  }
+}
+
+/* --- CREATOR ATTRIBUTION & PORTFOLIO LINKS --- */
+.creator-credit {
+  font-size: 10px !important;
+  letter-spacing: 0.06em !important;
+  color: #ff9d54 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-weight: 600 !important;
+  padding: 3px 8px !important;
+  border: 1px solid #ff9d5444 !important;
+  border-radius: 3px !important;
+  background: #ff9d5412 !important;
+  transition: all 0.2s ease !important;
+}
+.creator-credit:hover {
+  color: #fff0da !important;
+  background: #ff9d5428 !important;
+  border-color: #ff9d5499 !important;
+  box-shadow: 0 0 10px #ff9d5433 !important;
+  transform: translateY(-1px) !important;
+}
+.creator-credit span {
+  color: #ffb877 !important;
+  font-size: 9px !important;
+}
+
+.bay-creator {
+  color: #ff9d54 !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  padding: 2px 7px !important;
+  border: 1px solid #ff9d5433 !important;
+  border-radius: 3px !important;
+  background: #ff9d5412 !important;
+  transition: all 0.2s ease !important;
+}
+.bay-creator:hover {
+  color: #ffffff !important;
+  border-color: #ff9d5488 !important;
+  background: #ff9d5425 !important;
+  box-shadow: 0 0 8px #ff9d5444 !important;
+}
+
+.creator-note {
+  margin-top: 16px !important;
+  padding: 13px 16px !important;
+  border: 1px solid #ff9d5444 !important;
+  background: #2b172d88 !important;
+  border-radius: 4px !important;
+}
+.creator-note span {
+  display: block !important;
+  font: 9.5px/1.3 var(--mono) !important;
+  letter-spacing: 0.08em !important;
+  color: #f7a464 !important;
+  margin-bottom: 6px !important;
+}
+.creator-note p {
+  font-size: 11.5px !important;
+  line-height: 1.6 !important;
+  color: #e5d1ec !important;
+  margin: 0 !important;
+}
+.creator-note a {
+  color: #ff9d54 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  font-weight: 600 !important;
+  transition: color 0.2s ease !important;
+}
+.creator-note a:hover {
+  color: #ffe0b3 !important;
+}
+
+@media(max-width: 600px) {
+  .creator-credit {
+    font-size: 8px !important;
+    padding: 2px 5px !important;
+  }
+  .bay-creator {
+    font-size: 7px !important;
+    padding: 1px 4px !important;
+  }
+}
+
+
+
+
+/* The disk label has its own clear row, outside the pumpkin scene. */
+.landing-bay{padding-bottom:38px}
+.lobby-disk-caption{position:absolute;bottom:0;left:0;right:0;min-height:38px;display:flex;align-items:center;justify-content:center;gap:9px;border-top:1px solid #634056;background:#180e1e;color:#f4ddc8;font:10px/1.5 var(--mono);letter-spacing:.08em;z-index:6}
+.lobby-disk-caption span{color:#ff9c3e;font-size:18px}
+.landing-bay .bay-bottom{bottom:53px}
+.landing-bay .halloween-stage{bottom:38px}
+@media(max-width:600px){.lobby-disk-caption{font-size:9px;letter-spacing:.03em}.landing-bay .bay-bottom{bottom:54px}.landing-bay{min-height:828px}}
+
+.halloween-stage .spirit-trail svg{top:auto;right:auto;left:var(--lobby-x);width:var(--lobby-size);height:calc(var(--lobby-size)*1.3);animation:lobby-spirit-wander var(--lobby-time) ease-out var(--lobby-delay) both}
+@keyframes lobby-spirit-wander{0%{opacity:.9;transform:translate3d(0,0,0) rotate(-10deg)}20%{opacity:.95;transform:translate3d(calc(var(--lobby-drift)*-.2),-65px,0) rotate(3deg)}55%{opacity:.85;transform:translate3d(calc(var(--lobby-drift)*-.4),-170px,0) rotate(8deg)}85%{opacity:.65}100%{opacity:0;transform:translate3d(var(--lobby-drift),-360px,0) rotate(-12deg)}}

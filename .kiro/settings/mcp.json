@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "last-save-evidence": {
+      "command": "node",
+      "args": ["scripts/recovery-mcp.mjs"],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

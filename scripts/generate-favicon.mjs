@@ -1,0 +1,92 @@
+import { writeFileSync } from 'fs';
+
+// Let's create an exquisite SVG favicon combining:
+// 1. 3.5" Floppy Disk chassis (The Last Save) with top-right chamfer cut & metal shutter
+// 2. The Kiro ghost logo (white ghost with classic vertical oval eyes)
+// 3. The Last Save 4-tile brand mark (rust orange 2x2 grid with rounded diagonal corners)
+
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <!-- Background glow for dark & light browser tabs -->
+    <filter id="ghost-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#ff812c" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#a855f7" flood-opacity="0.25"/>
+    </filter>
+    <filter id="disk-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <linearGradient id="disk-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#23172c"/>
+      <stop offset="100%" stop-color="#120b17"/>
+    </linearGradient>
+    <linearGradient id="shutter-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3d2d47"/>
+      <stop offset="50%" stop-color="#553f63"/>
+      <stop offset="100%" stop-color="#35273e"/>
+    </linearGradient>
+    <linearGradient id="ghost-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="85%" stop-color="#fff5ea"/>
+      <stop offset="100%" stop-color="#ecdcf8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 1. FLOPPY DISK BODY (The Last Save) -->
+  <!-- Top-right corner is chamfered (beveled) like a true 3.5" diskette -->
+  <path d="M 8,6 
+           L 48,6 
+           L 58,16 
+           L 58,56 
+           A 4,4 0 0 1 54,60 
+           L 10,60 
+           A 4,4 0 0 1 6,56 
+           L 6,8 
+           A 2,2 0 0 1 8,6 Z" 
+        fill="url(#disk-grad)" 
+        stroke="#6e447e" 
+        stroke-width="1.5"
+        filter="url(#disk-shadow)"/>
+
+  <!-- Floppy top grip rib lines -->
+  <line x1="8" y1="10" x2="15" y2="10" stroke="#483353" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="8" y1="13" x2="15" y2="13" stroke="#483353" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Write-protect tab notch on bottom right -->
+  <rect x="52" y="52" width="4" height="5" rx="1" fill="#09050d" stroke="#432851" stroke-width="0.8"/>
+
+  <!-- Metal Shutter Plate at top -->
+  <rect x="18" y="6" width="28" height="15" rx="1" fill="url(#shutter-grad)" stroke="#684e77" stroke-width="1"/>
+  <!-- Shutter read-window cutout slot -->
+  <rect x="23" y="8" width="6" height="10" rx="1" fill="#120a17"/>
+
+  <!-- 2. THE LAST SAVE 4-TILE BRAND MARK (Orange data blocks) -->
+  <g transform="translate(37, 8.5) rotate(-7)">
+    <!-- 2x2 grid of orange blocks -->
+    <!-- Top-left -->
+    <rect x="0" y="0" width="3.2" height="3.2" rx="0.5" fill="#ff812c"/>
+    <!-- Top-right (rounded outer corner) -->
+    <path d="M 4.2,0 h 1.7 a 1.5,1.5 0 0 1 1.5,1.5 v 1.7 h -3.2 z" fill="#ff812c"/>
+    <!-- Bottom-left (rounded outer corner) -->
+    <path d="M 0,4.2 h 3.2 v 3.2 h -1.7 a 1.5,1.5 0 0 1 -1.5,-1.5 z" fill="#ff812c"/>
+    <!-- Bottom-right -->
+    <rect x="4.2" y="4.2" width="3.2" height="3.2" rx="0.5" fill="#ff9948"/>
+  </g>
+
+  <!-- Disk Label Area outline with dark interior for eye cutouts -->
+  <rect x="10" y="22" width="44" height="34" rx="2" fill="#150d1e" stroke="#482e56" stroke-width="0.8"/>
+
+  <!-- 3. KIRO GHOST (Centered on the disk, glowing and haunting the disk) -->
+  <!-- Scaled & translated to prominently fill the disk window with clear eyes -->
+  <g transform="translate(15.5, 16) scale(0.44)" filter="url(#ghost-glow)">
+    <!-- Official Kiro ghost path -->
+    <g transform="matrix(3.800695,0,0,4.166604,-7.598366,0.001061)">
+      <path d="M4.594,6.677C6.67,-2.226 18.746,-2.211 21.16,6.632C21.513,7.929 22.885,14.214 19.487,20.379C17.942,23.176 13.646,25.869 12.497,22.262C8.6,25.477 3.315,24.1 5.789,18.609L5.471,18.752C1.901,20.057 1.608,17.544 2.298,16.239C2.748,15.399 3.025,14.904 3.235,14.342C3.588,13.367 3.693,12.774 3.828,11.844C4.098,10.007 4.105,8.237 4.593,6.677L4.594,6.677ZM12.964,6.687C12.638,6.676 12.329,6.839 12.154,7.115C11.937,7.438 11.824,7.94 11.824,8.577C11.824,9.282 11.974,10.467 12.964,10.467L12.972,10.467C13.729,10.467 14.186,9.762 14.186,8.577C14.186,7.955 14.059,7.452 13.819,7.122C13.625,6.843 13.304,6.68 12.964,6.687ZM17.044,6.687C16.718,6.676 16.409,6.839 16.234,7.115C16.017,7.438 15.904,7.94 15.904,8.577C15.904,9.282 16.054,10.467 17.044,10.467L17.052,10.467C17.809,10.467 18.267,9.762 18.267,8.577C18.267,7.955 18.139,7.452 17.899,7.122C17.705,6.843 17.384,6.68 17.044,6.687Z" 
+            fill="url(#ghost-grad)"
+            fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>`;
+
+writeFileSync('public/favicon.svg', svg);
+writeFileSync('app/icon.svg', svg);
+console.log('Generated public/favicon.svg and app/icon.svg');
