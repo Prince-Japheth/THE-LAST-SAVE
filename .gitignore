@@ -1,0 +1,19 @@
+node_modules/
+.next/
+.DS_Store
+*.log
+
+.env*
+!.env.example
+
+# local-only
+.next-check/
+*.profile/
+*.mp4
+*.mp3
+kiroidescreenshotsmentionedinthevoiceover/
+devpost-gallery/
+devpost-story.md
+devpost-thumbnail.png
+youtube-banner.png
+youtube-thumbnail.png

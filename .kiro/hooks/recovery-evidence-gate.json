@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "hooks": [{
+    "name": "Recovery evidence gate",
+    "trigger": "PostFileSave",
+    "matcher": "(lib/(proof|catalog|parity|format-contracts)\\.mjs|scripts/recovery-mcp\\.mjs)$",
+    "action": {"type": "command", "command": "npm test"},
+    "timeout": 90
+  }]
+}

@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Decoration Isolation Guard",
+      "trigger": "PreToolUse",
+      "matcher": "AppHaunting|HalloweenStage|NightShiftScene|PixelBat",
+      "action": {
+        "type": "agent",
+        "prompt": "This file is part of the Halloween decoration layer (AppHaunting, HalloweenStage, NightShiftScene, or PixelBat). Before writing or editing it, verify:\n\n1. IMPORT CHECK: This component must not import from lib/decoders.mjs, lib/archive.mjs, lib/parity.mjs, lib/carve.mjs, lib/recovery.worker.js, or lib/session-store.js. Decoration components are read-only observers.\n\n2. STATE CHECK: This component must not call indexedDB directly, dispatch writes to session state, or mutate any recovery data. It may only read props passed down to it.\n\n3. EVENT COMMUNICATION: The only way this component may react to recovery events is by listening to CustomEvents on window (e.g. tls:decoded, tls:export, tls:error, tls:artifact-selected). It must never call recovery functions directly.\n\n4. PERFORMANCE CHECK: Any new animation added must:\n   - Use transform and opacity only (no width, height, top, left, margin changes)\n   - Be wrapped in @media (prefers-reduced-motion: no-preference)\n   - Target 60 FPS\n\n5. POINTER CHECK: Any purely decorative overlay (embers, fog, bats) must have pointer-events: none so it cannot intercept clicks on recovery controls.\n\nIf any constraint is violated, block the write and explain the fix."
+      }
+    }
+  ]
+}

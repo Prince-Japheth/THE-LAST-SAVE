@@ -1,0 +1,37 @@
+{
+  "title": "MIRA / THE LAST SAVE",
+  "description": "An original fictional archive from a shuttered observatory, October 1996. All people, places and events are invented; these are newly authored demonstration files.",
+  "files": [
+    {
+      "name": "SIGNAL.PCX",
+      "url": "/demo/SIGNAL.PCX",
+      "size": 11446,
+      "role": "Recovered camera frame"
+    },
+    {
+      "name": "STARLOG.DBF",
+      "url": "/demo/STARLOG.DBF",
+      "size": 476,
+      "role": "Station catalog and inventory"
+    },
+    {
+      "name": "LETTER.RTF",
+      "url": "/demo/LETTER.RTF",
+      "size": 780,
+      "role": "Archivist’s last letter"
+    },
+    {
+      "name": "NIGHT.ANS",
+      "url": "/demo/NIGHT.ANS",
+      "size": 651,
+      "role": "Night wire terminal log"
+    },
+    {
+      "name": "README.TXT",
+      "url": "/demo/README.TXT",
+      "size": 439,
+      "role": "Disk notes and fiction notice"
+    }
+  ],
+  "zipUrl": "/demo/MIRA-LAST-SAVE.zip"
+}

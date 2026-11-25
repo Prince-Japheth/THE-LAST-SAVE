@@ -1,0 +1,9 @@
+# Vercel Web Push — no database
+
+Set VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY in Vercel environment settings, then redeploy. Generate a pair with `node scripts/generate-vapid.mjs` (prints keys for you to copy; never commit the private key). Set VAPID_SUBJECT to your real HTTPS contact URL or mailto address. On HTTPS deployments the origin is the default subject; on localhost an explicit subject is required, and Safari may reject localhost contact subjects. VAPID keys must stay stable across deployments.
+
+Use Notifications → Enable push (browser permission) → Send test. Brave may require “Use Google services for push messaging” enabled in browser settings. Safari/macOS notification delivery also depends on browser and OS permission. Test on your deployed HTTPS site.
+
+Only subscription metadata and fixed event messages reach these Vercel functions; original files, decodes, and sessions remain in IndexedDB locally. There is no Supabase, account, subscription database, scheduler, or autonomous recovery worker. Recovery continues only while the tab is open. The browser requests a push after exporting a recovery bundle. A successful response means the push provider accepted it, not guaranteed device delivery.
+
+The subscription is held in the browser. An expiring HMAC ticket binds it to the server key; re-enable to renew after seven days. Disable unsubscribes locally. The public registration endpoint allows fixed notifications to a signed subscription, not arbitrary messages or URLs. Endpoints are restricted to known push providers, requests require same origin, bodies are bounded, and notification sending is throttled per warm instance. For a public high-traffic deployment configure Vercel Firewall rate limits for `/api/push/*`; in-memory limits are not global across serverless instances. Do not expose a public arbitrary-message relay.

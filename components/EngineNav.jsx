@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function EngineNav({active}){return <nav className="engine-nav" aria-label="Recovery applications"><Link href="/" aria-current={active==='archive'?'page':undefined}>01 / Haunted archive</Link><Link href="/proof" aria-current={active==='proof'?'page':undefined}>02 / Resurrection proof</Link><Link href="/preserve" aria-current={active==='preserve'?'page':undefined}>03 / Preservation desk</Link><span>ONE ENGINE · FILES STAY LOCAL</span></nav>}
